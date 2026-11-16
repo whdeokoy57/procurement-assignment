@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>나라장터 수요기관 조회</title>
+<style>
+:root{font-family:"Malgun Gothic",system-ui,sans-serif;color:#172a29;background:#eef4f1;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0}
+main{max-width:980px;margin:auto;padding:clamp(22px,5vw,56px) 18px}
+header{background:#134439;color:white;border-radius:20px;padding:clamp(20px,5vw,40px)}
+h1{margin:0 0 14px;font-size:clamp(26px,5vw,42px);line-height:1.2}
+header p{margin:8px 0;line-height:1.5}
+.product{font-weight:700}
+.period{color:#d1ebe0;font-size:.9rem}
+dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
+dl div,section{background:white;border:1px solid #d6e6de;border-radius:14px}
+dl div{padding:clamp(10px,3vw,20px)}
+dt{font-size:.85rem;color:#425d54}
+dd{margin:5px 0 0;font-weight:700;font-size:clamp(17px,4vw,30px)}
+section{padding:clamp(12px,3vw,24px)}
+.toolbar{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+h2{margin:0;font-size:1.2rem}
+label{display:flex;align-items:center;gap:8px;font-size:.88rem}
+select{font:inherit;padding:8px;border:1px solid #82998f;border-radius:6px;background:white;color:inherit}
+select:focus-visible,[tabindex]:focus-visible{outline:3px solid #278268;outline-offset:3px}
+.table-wrap{overflow:auto}
+table{width:100%;min-width:475px;border-collapse:collapse;font-size:.9rem}
+thead{background:#e7f1ed}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #e3ebe7}
+td:not(:first-child),th:not(:first-child){white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:#f4f8f6}
+footer{font-size:.83rem;line-height:1.65;color:#425d54;margin-top:16px}
+footer p{margin:5px 0}
+footer a{color:#114e3b}
+</style>
+</head>
+<body>
+<main>
+ <header>
+  <h1>나라장터 수요기관 조회</h1>
+  <p class="product" id="product"></p>
+  <p class="period" id="period"></p>
+ </header>
+ <dl aria-label="표본 집계">
+  <div><dt>수요기관</dt><dd id="agencies"></dd></div>
+  <div><dt>납품요구</dt><dd id="requests"></dd></div>
+  <div><dt>요청 수량</dt><dd id="quantity"></dd></div>
+ </dl>
+ <section aria-labelledby="agency-heading">
+  <div class="toolbar">
+   <h2 id="agency-heading">기관별 납품요구 이력</h2>
+   <label for="sort">정렬
+    <select id="sort">
+     <option value="date">최근 납품요구일순</option>
+     <option value="count">요청 건수순</option>
+     <option value="quantity">요청 수량순</option>
+    </select>
+   </label>
+  </div>
+  <div class="table-wrap" tabindex="0" role="region" aria-labelledby="agency-heading">
+   <table>
+    <thead><tr><th scope="col">수요기관</th><th scope="col" id="date-head">최근 요청일</th><th scope="col" id="count-head">요청 건수</th><th scope="col" id="quantity-head">요청 수량</th></tr></thead>
+    <tbody id="rows"></tbody>
+   </table>
+  </div>
+ </section>
+ <footer>
+  <p>출처 <a href="https://www.data.go.kr/data/15053481/fileData.do">조달청 나라장터쇼핑몰 납품요구 물품 내역</a> · 조회 조건 2026.08.17~2026.11.16</p>
+  <p>제공 표본에서 해당 품목의 최종 납품요구를 집계했습니다. 건수는 기관별 고유 납품요구번호 수이며, 수량은 해당 품목의 요청 수량 합계입니다.</p>
+ </footer>
+ <noscript>기관별 집계표를 보려면 브라우저에서 JavaScript를 켜 주세요.</noscript>
+</main>
+<script type="application/json" id="data">{"id":"24502380","product":"작업용의자, 듀오백, CSD3H-ADCB, 712×618×1162~1252mm","dates":["20260818","20261113"],"agencyCount":150,"requestCount":169,"quantity":923,"agencies":[{"name":"부산광역시교육청","date":"20260818","count":1,"quantity":1},{"name":"국가유산청 궁능유적본부 조선왕릉서부지구관리소","date":"20260818","count":1,"quantity":2},{"name":"경북대학교 자연과학대학","date":"20260818","count":1,"quantity":1},{"name":"서울특별시교육청 영등포평생학습관","date":"20260819","count":1,"quantity":1},{"name":"대구광역시교육청 경북대학교사범대학부속고등학교","date":"20260820","count":1,"quantity":1},{"name":"기후에너지환경부 국립생물자원관","date":"20260820","count":1,"quantity":7},{"name":"전라남도교육청 보성고등학교","date":"20260821","count":1,"quantity":1},{"name":"전북특별자치도교육청 전북특별자치도익산교육지원청 이리영등초등학교","date":"20260821","count":1,"quantity":1},{"name":"대전광역시교육청 대전교육과학연구원","date":"20260824","count":1,"quantity":1},{"name":"경기도교육청 판곡고등학교","date":"20260824","count":1,"quantity":1},{"name":"전남광주통합특별시교육청 전남광주통합특별시구례교육지원청","date":"20260824","count":1,"quantity":3},{"name":"재단법인울산지역산업진흥원","date":"20260825","count":1,"quantity":3},{"name":"행정안전부 국가정보자원관리원 광주센터","date":"20260825","count":1,"quantity":2},{"name":"국방부 육군 제3139부대","date":"20260825","count":1,"quantity":4},{"name":"전라남도담양교육청 수북초등학교","date":"20260826","count":1,"quantity":1},{"name":"경기도교육청 경기도동두천교육청 덕현중학교","date":"20260827","count":1,"quantity":1},{"name":"대구광역시교육청 대구광역시서부교육지원청 대구연경초등학교","date":"20260827","count":1,"quantity":1},{"name":"수도군단","date":"20260827","count":1,"quantity":16},{"name":"서울과학기술대학교","date":"20261002","count":4,"quantity":29},{"name":"경상남도교육청 경남혜림학교","date":"20260831","count":1,"quantity":1},{"name":"경기도 화성시 병점구","date":"20260831","count":1,"quantity":5},{"name":"경찰청 서울특별시경찰청 기동단 6기동대","date":"20260907","count":2,"quantity":4},{"name":"경인교육대학교","date":"20260901","count":1,"quantity":1},{"name":"대전광역시 유성구","date":"20260908","count":2,"quantity":2},{"name":"국방부 국방부조사본부","date":"20260901","count":1,"quantity":4},{"name":"서울특별시교육청 서울특별시동작관악교육지원청","date":"20260902","count":1,"quantity":9},{"name":"전북특별자치도교육청 전북특별자치도정읍교육지원청 대흥초등학교","date":"20260902","count":1,"quantity":1},{"name":"해양경찰청 동해지방해양경찰청","date":"20260902","count":1,"quantity":1},{"name":"서울특별시교육청 서울특별시남부교육지원청 서울천왕초등학교","date":"20260903","count":1,"quantity":1},{"name":"제2포병여단","date":"20260904","count":1,"quantity":7},{"name":"강원대학교","date":"20260904","count":1,"quantity":3},{"name":"국토교통부 부산지방항공청","date":"20260904","count":1,"quantity":1},{"name":"강원대학교 삼척캠퍼스","date":"20261019","count":2,"quantity":6},{"name":"공무원연금공단","date":"20260904","count":1,"quantity":2},{"name":"전남대학교","date":"20260907","count":1,"quantity":11},{"name":"서울특별시교육청 등촌고등학교","date":"20260908","count":1,"quantity":1},{"name":"경기도교육청 경기도동두천양주교육지원청","date":"20261028","count":3,"quantity":7},{"name":"경기도 의정부시","date":"20260908","count":1,"quantity":2},{"name":"경기도김포교육청 수남초등학교","date":"20260908","count":1,"quantity":1},{"name":"강원특별자치도 양양군","date":"20260908","count":1,"quantity":5},{"name":"육군제5602부대","date":"20260908","count":1,"quantity":1},{"name":"울산광역시교육청 울산광역시강북교육청 호계중학교","date":"20260909","count":1,"quantity":1},{"name":"한국해양대학교","date":"20260909","count":1,"quantity":1},{"name":"한국폴리텍VI대학구미캠퍼스","date":"20260910","count":1,"quantity":1},{"name":"국가유산청","date":"20260911","count":1,"quantity":1},{"name":"제31보병사단","date":"20260911","count":1,"quantity":67},{"name":"한국고전번역원","date":"20261019","count":2,"quantity":2},{"name":"서울특별시성북교육청 서울돈암초등학교","date":"20260914","count":1,"quantity":2},{"name":"고용노동부 중부지방고용노동청 강원지청","date":"20260914","count":1,"quantity":3},{"name":"한국원자력통제기술원","date":"20261111","count":2,"quantity":2},{"name":"한국기초과학지원연구원","date":"20260914","count":1,"quantity":2},{"name":"국립한국교통대학교","date":"20260915","count":1,"quantity":4},{"name":"육군 제15보병사단","date":"20261113","count":3,"quantity":209},{"name":"서울특별시교육청 수도전기공업고등학교","date":"20260915","count":1,"quantity":5},{"name":"농림축산식품부 국립농산물품질관리원 전북지원","date":"20260916","count":1,"quantity":8},{"name":"국립목포해양대학교","date":"20260916","count":1,"quantity":1},{"name":"법무부 대구지방교정청 경북북부제2교도소","date":"20260916","count":1,"quantity":5},{"name":"제2군단","date":"20260916","count":1,"quantity":4},{"name":"중앙선거관리위원회 경상남도선거관리위원회 함안군선거관리위원회","date":"20260917","count":1,"quantity":2},{"name":"공군항공우주안전단","date":"20260917","count":1,"quantity":5},{"name":"경기도교육청 경기도구리남양주교육지원청 남양주덕송초등학교","date":"20261012","count":2,"quantity":13},{"name":"인천광역시강화교육청 강화초등학교","date":"20260918","count":1,"quantity":2},{"name":"법무부 김포공항출입국.외국인사무소","date":"20261029","count":2,"quantity":20},{"name":"경기도교육청 경기도이천교육지원청 진가초등학교","date":"20260922","count":1,"quantity":1},{"name":"육군 제 7851부대","date":"20260928","count":1,"quantity":1},{"name":"강원특별자치도 홍천군 보건소","date":"20260928","count":1,"quantity":1},{"name":"부산광역시교육청 부산국제고등학교","date":"20260928","count":1,"quantity":1},{"name":"육군 제21보병사단","date":"20261030","count":2,"quantity":37},{"name":"인천광역시교육청 부평공업고등학교","date":"20260929","count":1,"quantity":1},{"name":"대구광역시동부교육청 대구효신초등학교","date":"20260929","count":1,"quantity":1},{"name":"보건복지부 오송생명과학단지지원센터","date":"20260929","count":1,"quantity":1},{"name":"경기도 파주시","date":"20260929","count":1,"quantity":3},{"name":"경찰청 서울특별시경찰청 서울방배경찰서","date":"20260930","count":1,"quantity":3},{"name":"경상남도교육청 경상남도양산교육청 대운초등학교","date":"20261001","count":1,"quantity":1},{"name":"경상북도 성주군 의회사무과","date":"20261001","count":1,"quantity":1},{"name":"경상남도 산청군","date":"20261002","count":1,"quantity":2},{"name":"해양경찰청 남해지방해양경찰청 사천해양경찰서","date":"20261002","count":1,"quantity":5},{"name":"질병관리청","date":"20261002","count":1,"quantity":6},{"name":"서울특별시서부교육청 서울홍은초등학교","date":"20261007","count":1,"quantity":1},{"name":"보건복지부 국립재활원","date":"20261007","count":1,"quantity":2},{"name":"전북특별자치도 장수군","date":"20261007","count":1,"quantity":2},{"name":"외교부","date":"20261007","count":1,"quantity":1},{"name":"과학기술정보통신부 우정사업본부 경북지방우정청","date":"20261008","count":1,"quantity":1},{"name":"서울특별시서부교육청 서울안산초등학교","date":"20261008","count":1,"quantity":1},{"name":"충청남도 부여소방서","date":"20261008","count":1,"quantity":1},{"name":"충청남도서산교육청 서령초등학교","date":"20261008","count":1,"quantity":1},{"name":"대구광역시 군위군 농업기술센터","date":"20261008","count":1,"quantity":1},{"name":"수도방위사령부","date":"20261012","count":1,"quantity":1},{"name":"전라남도해남교육청 계곡초등학교","date":"20261012","count":1,"quantity":1},{"name":"중소벤처기업부 대전.세종지방중소벤처기업청","date":"20261013","count":1,"quantity":4},{"name":"한국환경공단 강원환경본부","date":"20261013","count":1,"quantity":11},{"name":"강원특별자치도 강릉시 농업기술센터","date":"20261028","count":2,"quantity":9},{"name":"공정거래위원회","date":"20261015","count":2,"quantity":3},{"name":"서울특별시 성북구 보건소","date":"20261014","count":1,"quantity":2},{"name":"경상남도의령교육청 대의초등학교","date":"20261015","count":1,"quantity":1},{"name":"경기도용인교육청 대지중학교","date":"20261015","count":1,"quantity":10},{"name":"서울특별시 서울시립대학교","date":"20261016","count":1,"quantity":3},{"name":"육군제7376부대","date":"20261019","count":1,"quantity":62},{"name":"인천광역시교육청 인천광역시북부교육지원청","date":"20261112","count":2,"quantity":2},{"name":"국가유산청 국립문화유산연구원","date":"20261019","count":1,"quantity":1},{"name":"행정안전부 지방자치인재개발원","date":"20261020","count":1,"quantity":2},{"name":"제주특별자치도교육청 서귀포시교육청 서광초등학교","date":"20261020","count":1,"quantity":2},{"name":"법무부 부산보호관찰소 서부지소","date":"20261020","count":1,"quantity":10},{"name":"서울특별시 강서구 보건소","date":"20261020","count":1,"quantity":2},{"name":"경찰청 전라남도경찰청 나주경찰서","date":"20261021","count":1,"quantity":1},{"name":"경기도교육청 경기도구리남양주교육지원청","date":"20261021","count":1,"quantity":1},{"name":"서울특별시강동교육청 서울성일초등학교","date":"20261021","count":1,"quantity":1},{"name":"경기도평택교육청 오성초등학교","date":"20261022","count":1,"quantity":2},{"name":"전북특별자치도 남원소방서","date":"20261022","count":1,"quantity":5},{"name":"경기도교육청 경기도양평교육지원청 수입초등학교","date":"20261023","count":1,"quantity":1},{"name":"경기도김포교육청 고창초등학교","date":"20261023","count":1,"quantity":1},{"name":"강원특별자치도교육청 함백고등학교","date":"20261023","count":1,"quantity":17},{"name":"금융위원회","date":"20261025","count":1,"quantity":1},{"name":"전남광주통합특별시 여수시 보건소","date":"20261026","count":1,"quantity":1},{"name":"강원특별자치도교육청 강원특별자치도정선교육지원청 함백중학교","date":"20261026","count":1,"quantity":15},{"name":"경기도교육청 백석고등학교","date":"20261026","count":1,"quantity":1},{"name":"경찰청 대전광역시경찰청","date":"20261026","count":1,"quantity":2},{"name":"농림축산식품부 농림축산검역본부","date":"20261026","count":1,"quantity":3},{"name":"경찰청 경기도남부경찰청","date":"20261026","count":1,"quantity":8},{"name":"충청남도교육청 충청남도천안교육지원청 천안가온초등학교","date":"20261027","count":1,"quantity":2},{"name":"충청북도 의회사무처","date":"20261027","count":1,"quantity":11},{"name":"세종특별자치시교육청 해밀중학교","date":"20261027","count":1,"quantity":2},{"name":"충청남도 태안소방서","date":"20261027","count":1,"quantity":1},{"name":"육군 제1포병여단","date":"20261028","count":1,"quantity":7},{"name":"경기도교육청 중산고등학교","date":"20261028","count":1,"quantity":4},{"name":"기상청 기상레이더센터","date":"20261028","count":1,"quantity":3},{"name":"한국환경공단","date":"20261028","count":1,"quantity":2},{"name":"국방부 계룡대근무지원단","date":"20261029","count":1,"quantity":3},{"name":"전남광주통합특별시교육청 서진여자고등학교","date":"20261029","count":1,"quantity":7},{"name":"강원특별자치도 원주시","date":"20261029","count":1,"quantity":1},{"name":"전북특별자치도 김제시","date":"20261029","count":1,"quantity":2},{"name":"국회 국회사무처","date":"20261029","count":1,"quantity":6},{"name":"국방부 국군수송사령부","date":"20261030","count":1,"quantity":1},{"name":"경기도 연천소방서","date":"20261030","count":1,"quantity":2},{"name":"충청남도예산교육청 봉산초등학교","date":"20261030","count":1,"quantity":1},{"name":"소방청 중앙소방학교","date":"20261102","count":1,"quantity":4},{"name":"경기도안산교육청 정지초등학교","date":"20261103","count":1,"quantity":2},{"name":"경기도 소방재난본부","date":"20261105","count":2,"quantity":4},{"name":"국립순천대학교 산학협력단","date":"20261103","count":1,"quantity":4},{"name":"부산광역시교육청 부산광역시북부교육지원청 신덕초등학교","date":"20261104","count":1,"quantity":1},{"name":"한국남동발전(주) 강릉발전본부","date":"20261105","count":1,"quantity":4},{"name":"해병제9227부대","date":"20261106","count":1,"quantity":26},{"name":"인천광역시교육청","date":"20261110","count":1,"quantity":2},{"name":"국방부 국군화생방방호사령부","date":"20261110","count":1,"quantity":5},{"name":"충청북도 청주서부소방서","date":"20261111","count":1,"quantity":2},{"name":"경기도교육청 경기도구리남양주교육지원청 가양초등학교","date":"20261111","count":1,"quantity":7},{"name":"기후에너지환경부","date":"20261111","count":1,"quantity":2},{"name":"과학기술정보통신부 우정사업본부","date":"20261111","count":1,"quantity":4},{"name":"서울특별시 강남구","date":"20261112","count":1,"quantity":21},{"name":"농림축산식품부 국립종자원","date":"20261112","count":1,"quantity":5}]}</script>
+<script>
+const data = JSON.parse(document.getElementById('data').textContent);
+const element = id => document.getElementById(id);
+const formatNumber = new Intl.NumberFormat('ko-KR');
+const formatDate = value => [value.slice(0,4), value.slice(4,6), value.slice(6,8)].join('.');
+element('product').textContent = data.product + ' · 물품식별번호 ' + data.id;
+element('period').textContent = '표본 내 요청일 ' + data.dates.map(formatDate).join(' ~ ');
+element('agencies').textContent = formatNumber.format(data.agencyCount) + '곳';
+element('requests').textContent = formatNumber.format(data.requestCount) + '건';
+element('quantity').textContent = formatNumber.format(data.quantity) + '개';
+
+function render() {
+ const sort = element('sort').value;
+ const rows = [...data.agencies].sort((a, b) =>
+  Number(b[sort]) - Number(a[sort]) || Number(b.date) - Number(a.date) || a.name.localeCompare(b.name, 'ko')
+ );
+ for (const key of ['date', 'count', 'quantity']) {
+  const header = element(key + '-head');
+  if (key === sort) header.setAttribute('aria-sort', 'descending');
+  else header.removeAttribute('aria-sort');
+ }
+ const fragment = document.createDocumentFragment();
+ for (const row of rows) {
+  const tr = document.createElement('tr');
+  for (const value of [row.name, formatDate(row.date), formatNumber.format(row.count) + '건', formatNumber.format(row.quantity) + '개']) {
+   tr.insertCell().textContent = value;
+  }
+  fragment.append(tr);
+ }
+ element('rows').replaceChildren(fragment);
+}
+element('sort').addEventListener('change', render);
+render();
+</script>
+</body>
+</html>
